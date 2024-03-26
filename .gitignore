@@ -19,12 +19,6 @@ logs/
 out/
 *.iml
 
-# Java files
-*.java
-
-# Maven files
-pom.xml
-
 # Gradle files
 *.gradle
 
