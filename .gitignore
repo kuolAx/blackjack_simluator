@@ -1,0 +1,36 @@
+# IDE-specific files
+.idea/
+*.iws
+
+# Gradle wrapper files
+.gradle/
+gradle/wrapper/
+
+# Gradle build files
+build/
+
+# Logs
+logs/
+
+# Package Management Files
+.mvn/
+
+# IntelliJ IDEA files
+out/
+*.iml
+
+# Java files
+*.java
+
+# Maven files
+pom.xml
+
+# Gradle files
+*.gradle
+
+#ehcache files
+ehcache.xml
+
+# Gradle wrapper files
+gradle-wrapper.jar
+gradle-wrapper.
