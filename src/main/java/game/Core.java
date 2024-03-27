@@ -46,6 +46,7 @@ public class Core {
                     if (isPlayerHitting) {
                         player.hit(deck);
                     } else {
+                        System.out.println();
                         System.out.println("Stay!");
                         break;
                     }

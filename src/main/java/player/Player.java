@@ -114,8 +114,10 @@ public class Player {
             this.win();
         else if (dealerScore > this.score)
             this.bust();
-        else if (dealerScore == this.score)
+        else if (dealerScore == this.score) {
             System.out.println("Draw! Dealer score: " + Dealer.getScore() + ". Your score: " + this.score + ".");
+            this.credits += this.currentBetSize;
+        }
         else
             this.win();
     }
