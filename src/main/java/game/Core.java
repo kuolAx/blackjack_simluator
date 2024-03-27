@@ -14,63 +14,55 @@ public class Core {
 
     public static void main(String[] args) {
 
-        Scanner scan = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         System.out.println("Any input to start the game. To quit, enter [q].");
 
         Player player = new Player();
-        Dealer dealer = new Dealer();
 
-        while( !scan.next().equals("q")) {
-            //new Deck every hand to reset odds and make card counting not possible
-            Deck deck = new Deck();
+        //new hand starts every iteration
+        while (!input.next().equals("q")) {
 
-            System.out.println();
             System.out.println("You have " + numberFormat.format(player.getCredits()) + "$.");
-            System.out.println("How many credits would you like to bet?");
+            System.out.println("How many $$$ would you like to bet?");
 
-            while( !scan.hasNextInt()) {
-                System.out.println("Please enter a number.");
-                scan.next();
-            }
-            player.bet(scan.nextInt());
+            player.bet(input);
 
+            System.out.println(numberFormat.format(player.getCredits()) + "$ remaining.");
             System.out.println("###############################################");
             System.out.println();
 
-            dealer.initializeHand(deck);
+            //new Deck every hand to reset odds and make card counting not possible
+            Deck deck = new Deck();
+
+            Dealer.initializeHand(deck);
             player.initializeHand(deck);
 
             while (player.getScore() < 22) {
 
-                boolean isPlayerHitting = getPlayerAction(scan);
+                boolean isPlayerHitting = getPlayerAction(input);
 
                 if (isPlayerHitting) {
                     player.hit(deck);
-
-                    if (!player.isBusted()) {
-                        //ask for next hit or stay
-                    } else {
-                        //dealer wins, lose credits and start next hand
-                        break;
-                    }
-
-                    if (Dealer.isBusted()) {
-                        //player wins, get credits and start next hand
-                        break;
-                    }
-
-
-                    //ask for next hit or stay -> loop continues
-
                 } else {
                     System.out.println("Stay!");
                     break;
                 }
+
+                //ask for next hit or stay -> loop continues
             }
 
-            while( !Dealer.isFinishedDrawing())
-                dealer.hit(deck);
-            //compare scores and determine winner of the game. then start next hand
+            if(player.isBusted()) {
+                System.out.println("[q] to quit. Any input to continue with next hand.");
+                continue;
+            }
+
+            while (!Dealer.isFinishedDrawing())
+                Dealer.hit(deck);
+
+            //compare scores and determine winner of the game
+            player.evaluateHand(Dealer.getScore());
+
+            //start next hand
             System.out.println("[q] to quit. Any input to continue with next hand.");
         }
     }
@@ -78,8 +70,7 @@ public class Core {
     private static boolean getPlayerAction(Scanner scan) {
 
         System.out.println();
-        System.out.println("Would you like to hit?");
-        System.out.println("[y] for yes. [n] for no.");
+        System.out.println("Would you like to hit? [y] for yes. [n] for no.");
 
         while (scan.hasNext()) {
 

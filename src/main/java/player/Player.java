@@ -1,11 +1,16 @@
 package player;
 
 import cards.Deck;
+import dealer.Dealer;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player {
+    private static final NumberFormat numberFormat = new DecimalFormat("###,###,###");
     private int credits = 10_000;
     private int currentBetSize;
     private int score;
@@ -15,12 +20,11 @@ public class Player {
     public int getCredits() {
         return credits;
     }
-    public int getCurrentBetSize() {
-        return currentBetSize;
-    }
+
     public int getScore() {
         return this.score;
     }
+
     public boolean isBusted() {
         return busted;
     }
@@ -55,10 +59,17 @@ public class Player {
         }
     }
 
-    public void bet(int credits) {
-        this.credits -= credits;
-        currentBetSize = credits;
-        System.out.println(this.credits + " credits remaining.");
+    public void bet(Scanner input) {
+
+        //TODO: implement betSize validation
+        while (!input.hasNextInt()) {
+            System.out.println("Please enter a number.");
+            input.next();
+        }
+        int betSize = input.nextInt();
+
+        this.credits -= betSize;
+        currentBetSize = betSize;
     }
 
     private String printHand() {
@@ -70,5 +81,31 @@ public class Player {
 
         return ret.toString();
     }
+
+    public void bust() {
+        System.out.println("You lost! Your score is: " + this.score + " with hand " + printHand());
+    }
+
+    private void win() {
+        System.out.println("You won! Your score is: " + this.score + " with hand " + printHand());
+        System.out.println("Dealer scored:          " + Dealer.getScore() + " with hand " + Dealer.getHand());
+
+        this.credits += this.currentBetSize*2;
+        System.out.println("You won " + this.currentBetSize + " credits. Now at " + numberFormat.format(this.credits) + "$");
+    }
+
+    public void evaluateHand(int dealerScore) {
+        if (this.isBusted())
+            this.bust();
+        else if (Dealer.isBusted())
+            this.win();
+        else if (dealerScore > this.score)
+            this.bust();
+        else if (dealerScore == this.score)
+            return;
+        else
+            this.win();
+    }
+
 
 }
