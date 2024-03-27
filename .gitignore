@@ -5,6 +5,8 @@
 # Gradle wrapper files
 .gradle/
 gradle/wrapper/
+gradlew
+gradlew.bat
 
 # Gradle build files
 build/
