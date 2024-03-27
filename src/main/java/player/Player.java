@@ -93,6 +93,9 @@ public class Player {
 
     public void bust() {
         System.out.println("You lost! Your score is: " + this.score + " with hand " + printHand());
+
+        if (this.credits <= 0)
+            throw new RuntimeException("Player is out of money.");
     }
 
     private void win() {

@@ -66,6 +66,7 @@ public class Core {
                 //start next hand
             }
         } catch (Exception e) {
+            System.out.println();
             System.out.println("Thank you for playing. You ended on " + numberFormat.format(player.getCredits()) + "$.");
             System.exit(0);
         }
