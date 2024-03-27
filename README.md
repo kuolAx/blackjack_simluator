@@ -1,14 +1,13 @@
 Simple CLI tool for playing blackjack.
 -
-Rules:
+Notes:
 -
--> the deck contains of 6 x 52 standard card decks  
+-> the deck contains of 6 card decks with 52 standard cards each  
 -> the deck is reshuffled after every hand to make card counting unprofitable  
 -> the format used is "placeholder for ruleset"  
--> using only numbers to identify the card value, since suits do not matter in blackjack  
+-> using only numbers for now to identify the card value, since suits do not matter in blackjack
 
-
-possible implementation goals:
+possible feature goals:
 -
 -> ace being 1 or 11 points logic  
 -> usage of actual cards to make splitting possible

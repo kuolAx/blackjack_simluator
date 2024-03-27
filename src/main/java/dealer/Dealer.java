@@ -27,6 +27,7 @@ public class Dealer {
             score += value;
             currentHand.add(value);
             System.out.print("Dealer hits. " + value + " ");
+            System.out.println("Dealer hand: " + printHand());
         }
         else if (score < 22) {
             System.out.println("Dealer stays at 17 and above");
@@ -37,10 +38,7 @@ public class Dealer {
             System.out.println("Dealer busted");
             busted = true;
             finishedDrawing = true;
-            return;
         }
-
-        System.out.println("Dealer hand: " + printHand());
     }
 
     public static void initializeHand(Deck deck) {

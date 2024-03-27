@@ -22,16 +22,15 @@ public class Core {
         //new hand starts every iteration
         while (!input.next().equals("q")) {
 
-            System.out.println("You have " + numberFormat.format(player.getCredits()) + "$.");
-            System.out.println("How many $$$ would you like to bet?");
+            System.out.println("You have " + numberFormat.format(player.getCredits()) + "$. How many $$$ would you like to bet?");
 
             player.bet(input);
 
             System.out.println(numberFormat.format(player.getCredits()) + "$ remaining.");
-            System.out.println("###############################################");
+            System.out.println("######################- new hand -#########################");
             System.out.println();
 
-            //new Deck every hand to reset odds and make card counting not possible
+            //new Deck on every hand dealt to reset odds and make card counting not possible
             Deck deck = new Deck();
 
             Dealer.initializeHand(deck);
@@ -48,7 +47,6 @@ public class Core {
                     break;
                 }
 
-                //ask for next hit or stay -> loop continues
             }
 
             if(player.isBusted()) {
@@ -65,6 +63,8 @@ public class Core {
             //start next hand
             System.out.println("[q] to quit. Any input to continue with next hand.");
         }
+
+        System.out.println("Thank you for playing. You ended on " + numberFormat.format(player.getCredits()) + "$.");
     }
 
     private static boolean getPlayerAction(Scanner scan) {

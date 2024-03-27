@@ -61,15 +61,24 @@ public class Player {
 
     public void bet(Scanner input) {
 
-        //TODO: implement betSize validation
-        while (!input.hasNextInt()) {
-            System.out.println("Please enter a number.");
-            input.next();
-        }
-        int betSize = input.nextInt();
+        //betSizeValidation
+        while (true) {
 
-        this.credits -= betSize;
-        currentBetSize = betSize;
+            if (input.hasNextInt()) {
+                int betSize = input.nextInt();
+                if (betSize > 0 && betSize <= this.credits) {
+                    this.credits -= betSize;
+                    currentBetSize = betSize;
+                    break;
+                }
+                else {
+                    System.out.println("Illegal amount. Please enter a valid amount.");
+                }
+            } else {
+                System.out.println("Please enter a number.");
+            }
+
+        }
     }
 
     private String printHand() {
@@ -102,7 +111,7 @@ public class Player {
         else if (dealerScore > this.score)
             this.bust();
         else if (dealerScore == this.score)
-            return;
+            System.out.println("Draw! Dealer score: " + Dealer.getScore() + ". Your score: " + this.score + ".");
         else
             this.win();
     }
