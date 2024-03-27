@@ -45,14 +45,13 @@ public class Player {
     }
 
     public void hit(Deck deck) {
-        System.out.println("Hitting!");
         int value = deck.getCard();
 
         this.score += value;
         this.currentHand.add(value);
 
-        System.out.println("You drew card: " + value);
-        System.out.println("Your new hand: " + printHand());
+        System.out.print("Hitting! You drew card: " + value + " Score: " + this.score + " New hand: " + printHand());
+        System.out.println();
 
         if (this.score > 21) {
             this.busted = true;
@@ -61,7 +60,7 @@ public class Player {
 
     public void bet(Scanner input) {
 
-        //betSizeValidation
+        //betSize Validation
         while (true) {
 
             if (input.hasNextInt()) {
@@ -75,6 +74,8 @@ public class Player {
                     System.out.println("Illegal amount. Please enter a valid amount.");
                 }
             } else {
+                if (input.next().equals("q"))
+                    throw new RuntimeException("Quitting");
                 System.out.println("Please enter a number.");
             }
 
@@ -96,6 +97,7 @@ public class Player {
     }
 
     private void win() {
+        System.out.println();
         System.out.println("You won! Your score is: " + this.score + " with hand " + printHand());
         System.out.println("Dealer scored:          " + Dealer.getScore() + " with hand " + Dealer.getHand());
 

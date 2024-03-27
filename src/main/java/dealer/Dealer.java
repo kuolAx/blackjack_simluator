@@ -27,15 +27,18 @@ public class Dealer {
             score += value;
             currentHand.add(value);
             System.out.print("Dealer hits. " + value + " ");
+            System.out.print("Dealer score: " + score + " ");
             System.out.println("Dealer hand: " + printHand());
         }
         else if (score < 22) {
-            System.out.println("Dealer stays at 17 and above");
+            System.out.println("Dealer stays at 17 and above. Staying at " + score);
+            System.out.println();
             finishedDrawing = true;
         }
 
         if (score > 21) {
             System.out.println("Dealer busted");
+            System.out.println();
             busted = true;
             finishedDrawing = true;
         }
@@ -45,6 +48,7 @@ public class Dealer {
         score = 0;
         currentHand = new ArrayList<>();
         Dealer.busted = false;
+        Dealer.finishedDrawing = false;
 
         score += deck.getCard();
         currentHand.add(score);

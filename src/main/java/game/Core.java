@@ -15,66 +15,72 @@ public class Core {
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
-        System.out.println("Any input to start the game. To quit, enter [q].");
+
+        System.out.println();
+        System.out.println("Welcome to blackjack!");
+        System.out.println("To quit, enter [q] anytime.");
+        System.out.println();
 
         Player player = new Player();
 
-        //new hand starts every iteration
-        while (!input.next().equals("q")) {
+        try {
+            //new hand starts every iteration
+            while (true) {
 
-            System.out.println("You have " + numberFormat.format(player.getCredits()) + "$. How many $$$ would you like to bet?");
+                System.out.println("######################-new hand-######################");
+                System.out.println();
 
-            player.bet(input);
+                System.out.println("You have " + numberFormat.format(player.getCredits()) + "$. How many $$$ would you like to bet?");
 
-            System.out.println(numberFormat.format(player.getCredits()) + "$ remaining.");
-            System.out.println("######################- new hand -#########################");
-            System.out.println();
+                player.bet(input);
 
-            //new Deck on every hand dealt to reset odds and make card counting not possible
-            Deck deck = new Deck();
+                //new Deck on every hand dealt to reset odds and make card counting not possible
+                Deck deck = new Deck();
 
-            Dealer.initializeHand(deck);
-            player.initializeHand(deck);
+                Dealer.initializeHand(deck);
+                player.initializeHand(deck);
 
-            while (player.getScore() < 22) {
+                while (player.getScore() < 22) {
 
-                boolean isPlayerHitting = getPlayerAction(input);
+                    boolean isPlayerHitting = getPlayerAction(input);
 
-                if (isPlayerHitting) {
-                    player.hit(deck);
-                } else {
-                    System.out.println("Stay!");
-                    break;
+                    if (isPlayerHitting) {
+                        player.hit(deck);
+                    } else {
+                        System.out.println("Stay!");
+                        break;
+                    }
+
                 }
 
+                if(player.isBusted()) {
+                    continue;
+                }
+
+                while (!Dealer.isFinishedDrawing())
+                    Dealer.hit(deck);
+
+                //compare scores and determine winner of the game
+                player.evaluateHand(Dealer.getScore());
+
+                //start next hand
             }
-
-            if(player.isBusted()) {
-                System.out.println("[q] to quit. Any input to continue with next hand.");
-                continue;
-            }
-
-            while (!Dealer.isFinishedDrawing())
-                Dealer.hit(deck);
-
-            //compare scores and determine winner of the game
-            player.evaluateHand(Dealer.getScore());
-
-            //start next hand
-            System.out.println("[q] to quit. Any input to continue with next hand.");
+        } catch (Exception e) {
+            System.out.println("Thank you for playing. You ended on " + numberFormat.format(player.getCredits()) + "$.");
+            System.exit(0);
         }
-
-        System.out.println("Thank you for playing. You ended on " + numberFormat.format(player.getCredits()) + "$.");
     }
 
     private static boolean getPlayerAction(Scanner scan) {
 
         System.out.println();
-        System.out.println("Would you like to hit? [y] for yes. [n] for no.");
+        System.out.println("Would you like to hit? [y] yes [n] no");
 
         while (scan.hasNext()) {
 
             String next = scan.next();
+            if(next.equals("q"))
+                throw new RuntimeException("Quitting");
             if (next.equals("y")) {
                 return true;
             } else if (next.equals("n")) {
