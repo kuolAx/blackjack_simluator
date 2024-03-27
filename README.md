@@ -10,7 +10,7 @@ Notes:
 possible feature goals:
 -
 -> ace being 1 or 11 points logic  
--> usage of actual cards to make splitting possible
--> splitting and doubling your bets
--> heightened rewards for: blackjack  
+-> usage of actual cards to make splitting possible  
+-> splitting and doubling your bets  
+-> heightened rewards for: blackjack    
 -> improve frontend  
