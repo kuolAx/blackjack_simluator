@@ -11,7 +11,10 @@ public class Dealer {
     private static boolean busted;
     private static boolean finishedDrawing;
 
-    public static int getScore() {return score;}
+    public static int getScore() {
+        return score;
+    }
+
     public static boolean isBusted() {
         return busted;
     }
@@ -26,11 +29,9 @@ public class Dealer {
             int value = deck.getCard();
             score += value;
             currentHand.add(value);
-            System.out.print("Dealer hits. " + value + " ");
-            System.out.print("Dealer score: " + score + " ");
+            System.out.print("Dealer hits. " + value + " Dealer score: " + score + " ");
             System.out.println("Dealer hand: " + printHand());
-        }
-        else if (score < 22) {
+        } else if (score < 22) {
             System.out.println("Dealer stays at 17 and above. Staying at " + score);
             System.out.println();
             finishedDrawing = true;

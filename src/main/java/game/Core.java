@@ -50,10 +50,10 @@ public class Core {
                         System.out.println("Stay!");
                         break;
                     }
-
                 }
 
-                if(player.isBusted()) {
+                if (player.isBusted()) {
+                    player.bust();
                     continue;
                 }
 
@@ -79,7 +79,7 @@ public class Core {
         while (scan.hasNext()) {
 
             String next = scan.next();
-            if(next.equals("q"))
+            if (next.equals("q"))
                 throw new RuntimeException("Quitting");
             if (next.equals("y")) {
                 return true;

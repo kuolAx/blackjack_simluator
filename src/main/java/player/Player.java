@@ -69,8 +69,7 @@ public class Player {
                     this.credits -= betSize;
                     currentBetSize = betSize;
                     break;
-                }
-                else {
+                } else {
                     System.out.println("Illegal amount. Please enter a valid amount.");
                 }
             } else {
@@ -101,7 +100,7 @@ public class Player {
         System.out.println("You won! Your score is: " + this.score + " with hand " + printHand());
         System.out.println("Dealer scored:          " + Dealer.getScore() + " with hand " + Dealer.getHand());
 
-        this.credits += this.currentBetSize*2;
+        this.credits += this.currentBetSize * 2;
         System.out.println("You won " + this.currentBetSize + " credits. Now at " + numberFormat.format(this.credits) + "$");
     }
 
