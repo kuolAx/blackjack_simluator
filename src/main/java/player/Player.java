@@ -65,6 +65,12 @@ public class Player {
 
             if (input.hasNextInt()) {
                 int betSize = input.nextInt();
+
+                //betting 0 is equal to "all in"
+                if (betSize == 0){
+                    betSize = this.credits;
+                }
+
                 if (betSize > 0 && betSize <= this.credits) {
                     this.credits -= betSize;
                     currentBetSize = betSize;

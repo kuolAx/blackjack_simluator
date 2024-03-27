@@ -29,7 +29,7 @@ public class Core {
                 System.out.println("######################-new hand-######################");
                 System.out.println();
 
-                System.out.println("You have " + numberFormat.format(player.getCredits()) + "$. How many $$$ would you like to bet?");
+                System.out.println("You have " + numberFormat.format(player.getCredits()) + "$. How many $$$ would you like to bet? [0] all in");
 
                 player.bet(input);
 
