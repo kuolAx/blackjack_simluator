@@ -6,21 +6,20 @@ import java.util.stream.IntStream;
 
 public class Deck {
 
-    private static List<Integer> decks = new ArrayList<>();
-
-    public Deck() {
-        initializeSixDecks();
-    }
-
-    /**
- * initializes the deck with 6 decks of 52 cards from a standard deck
- */
-private void initializeSixDecks() {
-    IntStream.rangeClosed(1, 13).forEach(i -> {
+    // 6 decks of 52 cards. cards above 10 are still only worth 10, so they get replaced with value 10
+    private static final List<Integer> cacheDecks = new ArrayList<>();
+    static { IntStream.rangeClosed(1, 13).map(i -> Math.min(i, 10)).forEach(i -> {
         for (int j = 0; j < 24; j++) {
-            decks.add(i);
-        }
-    });
-}
+            cacheDecks.add(i);
+        }});
+    }
+    private final List<Integer> decks = cacheDecks;
+
+    public int getCard() {
+        int index = (int) (Math.random() * decks.size());
+        int returnNumber = decks.get(index);
+        decks.remove(index);
+        return returnNumber;
+    }
 
 }
